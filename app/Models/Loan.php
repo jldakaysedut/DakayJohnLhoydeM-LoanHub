@@ -29,7 +29,7 @@ class Loan extends Model
 
     public function requirement()
     {
-        return $this->belongsTo(Requirement::class);
+        return $this->belongsTo(Requirement::class, 'requirements_id');
     }
 
     public function loanStatus()

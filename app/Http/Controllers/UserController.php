@@ -47,8 +47,13 @@ class UserController extends Controller
      // Edit an existing user
      public function editUser(Request $request, $id)
      {
+         $user = User::find($id);
+         if (!$user) {
+             return response()->json(['message' => 'User not found!'], 404);
+         }
+
          $request->validate([
-             'first_name' => ['required', 'string', 'max:255'],       
+             'first_name' => ['required', 'string', 'max:255'],
              'last_name' => ['required', 'string', 'max:255'],
              'contact' => ['required', 'string', 'max:20'],
              'username' => ['required', 'string', 'max:255', 'unique:users,username,' . $id],
@@ -56,23 +61,9 @@ class UserController extends Controller
              'role_id' => ['required', 'exists:roles,id'],
              'user_status_id' => ['required', 'exists:user_statuses,id'],
          ]);
- 
-         $user = User::find($id);
-         if (!$user) {
-             return response()->json(['message' => 'User not found!'], 404);
-         }
- 
-         $user->update([
-             'first_name' => $request->first_name,          
-             'last_name' => $request->last_name,
-             'contact' => $request->contact,
-             'username' => $request->username,
-             'email' => $request->email,
-             'role_id' => $request->role_id,
-             'user_status_id' => $request->user_status_id,
-         ]);
- 
-         return response()->json(['message' => 'User successfully updated!', 'user' => $user]);
+
+         $user->update($request->all());
+         return response()->json(['message' => 'User updated successfully!', 'user' => $user]);
      }
  
      // Delete a user

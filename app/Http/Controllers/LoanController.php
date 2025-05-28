@@ -7,6 +7,7 @@ use App\Models\Loan;
 
 class LoanController extends Controller
 {
+    // Get all loans with relationships
     public function getLoans()
     {
         $loans = Loan::with('loanType', 'requirement', 'loanStatus', 'requirementSubmit')->get();
@@ -23,7 +24,7 @@ class LoanController extends Controller
             'address'          => ['required', 'string', 'max:255'],
             'loan_type_id'     => ['required', 'exists:loan_types,id'],
             'requirements_id'  => ['required', 'exists:requirements,id'],
-            'requirement_submit_id' => ['required', 'exists:requirement_submits,id'], // Add this line
+            'requirement_submit_id' => ['required', 'exists:requirement_submits,id'],
             'amount'           => ['required', 'numeric', 'min:0'],
             'loan_status_id'   => ['required', 'exists:loan_statuses,id'],
             'date'             => ['required', 'date'],
@@ -36,7 +37,7 @@ class LoanController extends Controller
             'address'          => $request->address,
             'loan_type_id'     => $request->loan_type_id,
             'requirements_id'  => $request->requirements_id,
-            'requirement_submit_id' => $request->requirement_submit_id, // Add this line
+            'requirement_submit_id' => $request->requirement_submit_id,
             'amount'           => $request->amount,
             'loan_status_id'   => $request->loan_status_id,
             'date'             => $request->date,
@@ -55,7 +56,7 @@ class LoanController extends Controller
             'address'          => ['required', 'string', 'max:255'],
             'loan_type_id'     => ['required', 'exists:loan_types,id'],
             'requirements_id'  => ['required', 'exists:requirements,id'],
-            'requirement_submit_id' => ['required', 'exists:requirement_submits,id'], // Add this line
+            'requirement_submit_id' => ['required', 'exists:requirement_submits,id'],
             'amount'           => ['required', 'numeric', 'min:0'],
             'loan_status_id'   => ['required', 'exists:loan_statuses,id'],
             'date'             => ['required', 'date'],
@@ -73,7 +74,7 @@ class LoanController extends Controller
             'address'          => $request->address,
             'loan_type_id'     => $request->loan_type_id,
             'requirements_id'  => $request->requirements_id,
-            'requirement_submit_id' => $request->requirement_submit_id, // Add this line
+            'requirement_submit_id' => $request->requirement_submit_id,
             'amount'           => $request->amount,
             'loan_status_id'   => $request->loan_status_id,
             'date'             => $request->date,
